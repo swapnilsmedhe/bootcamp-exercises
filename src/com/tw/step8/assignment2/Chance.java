@@ -16,7 +16,7 @@ public class Chance {
         return new Chance(probability);
     }
 
-    public static Chance createNoChance(double probability) throws InvalidProbabilityException {
+    public Chance complement() throws InvalidProbabilityException {
         return Chance.create(1 -  probability);
     }
 
@@ -31,5 +31,10 @@ public class Chance {
     @Override
     public int hashCode() {
         return Objects.hash(probability);
+    }
+
+    public Chance combine(Chance otherChance) throws InvalidProbabilityException {
+        double combinedProbability = this.probability * otherChance.probability;
+        return Chance.create(combinedProbability);
     }
 }

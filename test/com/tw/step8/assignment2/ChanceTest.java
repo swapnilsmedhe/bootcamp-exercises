@@ -25,9 +25,20 @@ class ChanceTest {
 
     @Test
     void chanceOfNotGetting() throws InvalidProbabilityException {
-        Chance noChanceOfHeads = Chance.createNoChance(0.5);
+        Chance chance = Chance.create(0.5);
+        Chance complement = chance.complement();
+        Chance expectedComplement = Chance.create(0.5);
 
-        Chance expectedNoChanceOfHeads = Chance.create(0.5);
-        assertEquals(expectedNoChanceOfHeads, noChanceOfHeads);
+        assertEquals(expectedComplement, complement);
+    }
+
+    @Test
+    void combineChance() throws InvalidProbabilityException {
+        Chance chance1 = Chance.create(0.5);
+        Chance chance2 = Chance.create(0.5);
+
+        Chance expectedCombinedChance = Chance.create(0.25);
+
+        assertEquals(expectedCombinedChance, chance1.combine(chance2));
     }
 }
