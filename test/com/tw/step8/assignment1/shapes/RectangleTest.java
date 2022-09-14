@@ -1,4 +1,4 @@
-package com.tw.step8.assignment1.rectangle;
+package com.tw.step8.assignment1.shapes;
 
 import org.junit.jupiter.api.Test;
 

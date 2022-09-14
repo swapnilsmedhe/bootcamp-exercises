@@ -1,4 +1,4 @@
-package com.tw.step8.assignment1.rectangle;
+package com.tw.step8.assignment1.shapes;
 
 public class Rectangle {
     private final double length;
