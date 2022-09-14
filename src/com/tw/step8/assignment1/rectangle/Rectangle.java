@@ -2,18 +2,18 @@ package com.tw.step8.assignment1.rectangle;
 
 public class Rectangle {
     private final double length;
-    private final double width;
+    private final double breadth;
 
-    public Rectangle(double length, double width) {
+    public Rectangle(double length, double breadth) {
         this.length = length;
-        this.width = width;
+        this.breadth = breadth;
     }
 
     public double area() {
-        return length * width;
+        return length * breadth;
     }
 
     public double perimeter() {
-        return 2 * (length + width);
+        return 2 * (length + breadth);
     }
 }
