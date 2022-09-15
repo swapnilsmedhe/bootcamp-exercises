@@ -12,7 +12,7 @@ public class Length {
         this.unit = unit;
     }
 
-    public static Length createLength(double value, Unit unit) throws InvalidLengthException {
+    public static Length create(double value, Unit unit) throws InvalidLengthException {
         if (value < 0) {
             throw new InvalidLengthException(value);
         }
@@ -27,6 +27,10 @@ public class Length {
         return this.toCentimeter() == otherLength.toCentimeter();
     }
 
+    public boolean isGreaterThan(Length otherLength) {
+        return this.toCentimeter() > otherLength.toCentimeter();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,4 +43,5 @@ public class Length {
     public int hashCode() {
         return Objects.hash(value, unit);
     }
+
 }

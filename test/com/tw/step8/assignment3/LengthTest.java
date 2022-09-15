@@ -8,19 +8,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class LengthTest {
     @Test
     void createALength() throws InvalidLengthException {
-        Length inch1 = Length.createLength(5, Unit.INCH);
-        Length inch2 = Length.createLength(5, Unit.INCH);
+        Length inch1 = Length.create(5, Unit.INCH);
+        Length inch2 = Length.create(5, Unit.INCH);
 
         assertEquals(inch1, inch2);
     }
 
     @Test
     void compareInchAndFootForEquality() throws InvalidLengthException {
-        Length twelveInches = Length.createLength(12, Unit.INCH);
-        Length oneFeet = Length.createLength(1, Unit.FEET);
+        Length twelveInches = Length.create(12, Unit.INCH);
+        Length oneFeet = Length.create(1, Unit.FEET);
 
-        Length fiveInches = Length.createLength(5, Unit.INCH);
-        Length threeFeet = Length.createLength(3, Unit.FEET);
+        Length fiveInches = Length.create(5, Unit.INCH);
+        Length threeFeet = Length.create(3, Unit.FEET);
 
         assertTrue(twelveInches.isEqual(oneFeet));
         assertFalse(fiveInches.isEqual(threeFeet));
@@ -28,11 +28,11 @@ class LengthTest {
 
     @Test
     void compareInchAndCentimeterForEquality() throws InvalidLengthException {
-        Length twoInches = Length.createLength(2, Unit.INCH);
-        Length fiveCentimeters = Length.createLength(5, Unit.CM);
+        Length twoInches = Length.create(2, Unit.INCH);
+        Length fiveCentimeters = Length.create(5, Unit.CM);
 
-        Length oneInch = Length.createLength(1, Unit.INCH);
-        Length twoCentimeters = Length.createLength(2, Unit.CM);
+        Length oneInch = Length.create(1, Unit.INCH);
+        Length twoCentimeters = Length.create(2, Unit.CM);
 
         assertTrue(twoInches.isEqual(fiveCentimeters));
         assertFalse(oneInch.isEqual(twoCentimeters));
@@ -40,11 +40,11 @@ class LengthTest {
 
     @Test
     void compareCentimeterAndMillimeterForEquality() throws InvalidLengthException {
-        Length oneCentimeter = Length.createLength(1, Unit.CM);
-        Length tenMillimeters = Length.createLength(10, Unit.MM);
+        Length oneCentimeter = Length.create(1, Unit.CM);
+        Length tenMillimeters = Length.create(10, Unit.MM);
 
-        Length fiveCentimeter = Length.createLength(5, Unit.CM);
-        Length fifteenMillimeters = Length.createLength(15, Unit.MM);
+        Length fiveCentimeter = Length.create(5, Unit.CM);
+        Length fifteenMillimeters = Length.create(15, Unit.MM);
 
         assertTrue(oneCentimeter.isEqual(tenMillimeters));
         assertFalse(fiveCentimeter.isEqual(fifteenMillimeters));
@@ -52,11 +52,11 @@ class LengthTest {
 
     @Test
     void compareMillimeterAndInchForEquality() throws InvalidLengthException {
-        Length hundredMillimeters = Length.createLength(100, Unit.MM);
-        Length fourInches = Length.createLength(4, Unit.INCH);
+        Length hundredMillimeters = Length.create(100, Unit.MM);
+        Length fourInches = Length.create(4, Unit.INCH);
 
-        Length twoHundredMillimeters = Length.createLength(200, Unit.MM);
-        Length fiveInches = Length.createLength(5, Unit.INCH);
+        Length twoHundredMillimeters = Length.create(200, Unit.MM);
+        Length fiveInches = Length.create(5, Unit.INCH);
 
         assertTrue(hundredMillimeters.isEqual(fourInches));
         assertFalse(twoHundredMillimeters.isEqual(fiveInches));
@@ -64,6 +64,18 @@ class LengthTest {
 
     @Test
     void throwInvalidLengthException() {
-        assertThrows(InvalidLengthException.class, () -> Length.createLength(-2, Unit.FEET));
+        assertThrows(InvalidLengthException.class, () -> Length.create(-2, Unit.FEET));
+    }
+
+    @Test
+    void compareOneLengthGreaterThanOther() throws InvalidLengthException {
+        Length hundredAndTenMillimeters = Length.create(110, Unit.MM);
+        Length fourInches = Length.create(4, Unit.INCH);
+
+        Length twentyInches = Length.create(20, Unit.INCH);
+        Length fiveFeet = Length.create(5, Unit.FEET);
+
+        assertTrue(hundredAndTenMillimeters.isGreaterThan(fourInches));
+        assertFalse(twentyInches.isGreaterThan(fiveFeet));
     }
 }
