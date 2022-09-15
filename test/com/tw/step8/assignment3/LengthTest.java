@@ -14,10 +14,14 @@ class LengthTest {
     }
 
     @Test
-    void areTwoLengthsEqual() {
-        Length inch = new Length(12, Unit.INCH);
-        Length feet = new Length(1, Unit.FEET);
+    void compareInchAndFootForEquality() {
+        Length twelveInches = new Length(12, Unit.INCH);
+        Length oneFeet = new Length(1, Unit.FEET);
 
-        assertTrue(inch.isEqual(feet));
+        Length fiveInches = new Length(5, Unit.INCH);
+        Length threeFeet = new Length(3, Unit.FEET);
+
+        assertTrue(twelveInches.isEqual(oneFeet));
+        assertFalse(fiveInches.isEqual(threeFeet));
     }
 }

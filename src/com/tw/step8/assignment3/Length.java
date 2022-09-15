@@ -11,6 +11,14 @@ public class Length {
         this.unit = unit;
     }
 
+    private double toCentimeter() {
+        return this.value * this.unit.centimeterConstant;
+    }
+
+    public boolean isEqual(Length otherLength) {
+        return this.toCentimeter() == otherLength.toCentimeter();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -22,13 +30,5 @@ public class Length {
     @Override
     public int hashCode() {
         return Objects.hash(value, unit);
-    }
-
-    private double toCentimeter() {
-        return this.value * this.unit.centimeterConstant;
-    }
-
-    public boolean isEqual(Length otherLength) {
-        return this.toCentimeter() == otherLength.toCentimeter();
     }
 }
