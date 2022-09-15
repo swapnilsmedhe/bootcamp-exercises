@@ -52,4 +52,8 @@ public class Length {
         return Objects.hash(value, unit);
     }
 
+    public Length add(Length otherLength) throws InvalidLengthException {
+        double result =  this.toInch() + otherLength.toInch();
+        return Length.create(result, LengthUnit.INCH);
+    }
 }

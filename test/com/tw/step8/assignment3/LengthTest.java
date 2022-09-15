@@ -102,4 +102,24 @@ class LengthTest {
 
         assertEquals(ComparisonResult.LESSER, fiveMillimeters.compare(oneCentimeter));
     }
+
+    @Test
+    void addTwoLengthsOfInchUnit() throws InvalidLengthException {
+        Length twoInches = Length.create(2, LengthUnit.INCH);
+        Length threeInches = Length.create(3, LengthUnit.INCH);
+
+        Length expectedLength = Length.create(5, LengthUnit.INCH);
+
+        assertEquals(expectedLength, twoInches.add(threeInches));
+    }
+
+    @Test
+    void addTwoLengthsOfDifferentUnits() throws InvalidLengthException {
+        Length twoAndHalfCM = Length.create(2.5, LengthUnit.CM);
+        Length twoInches = Length.create(2, LengthUnit.INCH);
+
+        Length expectedLength = Length.create(3, LengthUnit.INCH);
+
+        assertEquals(expectedLength, twoAndHalfCM.add(twoInches));
+    }
 }
