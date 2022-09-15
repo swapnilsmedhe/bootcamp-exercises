@@ -31,6 +31,14 @@ public class Length {
         return this.toCentimeter() > otherLength.toCentimeter();
     }
 
+    public ComparisonResult compare(Length otherLength) {
+        if (this.isEqual(otherLength)){
+            return ComparisonResult.EQUAL;
+        }
+
+        return this.isGreaterThan(otherLength) ? ComparisonResult.GREATER : ComparisonResult.LESSER;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

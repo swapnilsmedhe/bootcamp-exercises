@@ -78,4 +78,28 @@ class LengthTest {
         assertTrue(hundredAndTenMillimeters.isGreaterThan(fourInches));
         assertFalse(twentyInches.isGreaterThan(fiveFeet));
     }
+
+    @Test
+    void compareEqualityOfTwoLengths() throws InvalidLengthException {
+        Length oneCentimeter = Length.create(1, Unit.CM);
+        Length tenMillimeters = Length.create(10, Unit.MM);
+
+        assertEquals(ComparisonResult.EQUAL, oneCentimeter.compare(tenMillimeters));
+    }
+
+    @Test
+    void compareIfOneLengthIsGreaterThanOther() throws InvalidLengthException {
+        Length twoCentimeters = Length.create(2, Unit.CM);
+        Length tenMillimeters = Length.create(10, Unit.MM);
+
+        assertEquals(ComparisonResult.GREATER, twoCentimeters.compare(tenMillimeters));
+    }
+
+    @Test
+    void compareIfOneLengthIsLesserThanOther() throws InvalidLengthException {
+        Length fiveMillimeters = Length.create(5, Unit.MM);
+        Length oneCentimeter = Length.create(1, Unit.CM);
+
+        assertEquals(ComparisonResult.LESSER, fiveMillimeters.compare(oneCentimeter));
+    }
 }
