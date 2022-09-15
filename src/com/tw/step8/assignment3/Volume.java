@@ -1,5 +1,9 @@
 package com.tw.step8.assignment3;
 
+import com.tw.step8.assignment2.Chance;
+
+import java.util.Objects;
+
 public class Volume {
     private final double value;
     private final VolumeUnit unit;
@@ -31,5 +35,28 @@ public class Volume {
         }
 
         return this.isGreaterThan(otherVolume) ? ComparisonResult.GREATER : ComparisonResult.LESSER;
+    }
+
+    public Volume add(Volume otherVolume) {
+        double result = this.toLiters() + otherVolume.toLiters();
+        return Volume.create(result, VolumeUnit.LITER);
+    }
+
+    public boolean isDifferenceLessThanDelta(Volume otherVolume, double delta) {
+        double difference = Math.abs(this.value - otherVolume.value);
+        return difference < delta;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Volume volume = (Volume) o;
+        return Double.compare(volume.value, value) == 0 && unit == volume.unit;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, unit);
     }
 }

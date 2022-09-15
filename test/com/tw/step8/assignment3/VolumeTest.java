@@ -44,4 +44,15 @@ class VolumeTest{
 
         assertEquals(ComparisonResult.LESSER, gallon.compare(liters));
     }
+
+    @Test
+    void addTwoVolumes() {
+        Volume oneGallon = Volume.create(1, VolumeUnit.GALLON);
+        Volume oneLiter = Volume.create(1, VolumeUnit.LITER);
+
+        Volume expectedVolume = Volume.create(4.78, VolumeUnit.LITER);
+        Volume actualVolume = oneGallon.add(oneLiter);
+
+        assertTrue(expectedVolume.isDifferenceLessThanDelta(actualVolume, 0.001));
+    }
 }
