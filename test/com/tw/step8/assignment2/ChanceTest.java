@@ -26,19 +26,38 @@ class ChanceTest {
     @Test
     void chanceOfNotGetting() throws InvalidProbabilityException {
         Chance chance = Chance.create(0.5);
-        Chance complement = chance.complement();
+        Chance complement = chance.not();
         Chance expectedComplement = Chance.create(0.5);
 
         assertEquals(expectedComplement, complement);
     }
 
     @Test
-    void combineChance() throws InvalidProbabilityException {
+    void andOfTwoChances() throws InvalidProbabilityException {
         Chance chance1 = Chance.create(0.5);
         Chance chance2 = Chance.create(0.5);
 
         Chance expectedCombinedChance = Chance.create(0.25);
 
-        assertEquals(expectedCombinedChance, chance1.combine(chance2));
+        assertEquals(expectedCombinedChance, chance1.and(chance2));
+    }
+
+    @Test
+    void orOfTwoChances() throws InvalidProbabilityException {
+        Chance chanceOfHeads = Chance.create(1.0/4);
+        Chance chanceOfRollingTwo = Chance.create(1.0/6);
+
+        Chance expectedOrOfTwoChances = Chance.create(9.0 / 24);
+        Chance actualOrOfTwoChances = chanceOfHeads.or(chanceOfRollingTwo);
+
+        assertTrue(expectedOrOfTwoChances.isDifferenceLessThanDelta(actualOrOfTwoChances, 0.01));
+    }
+
+    @Test
+    void isDifferenceLessThanDelta() throws InvalidProbabilityException {
+        Chance chanceOfHeads = Chance.create(1.0/2);
+        Chance chanceOfRollingTwo = Chance.create(1.0 / 6);
+
+        assertTrue(chanceOfHeads.isDifferenceLessThanDelta(chanceOfRollingTwo, 0.4));
     }
 }

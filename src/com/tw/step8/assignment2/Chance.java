@@ -16,8 +16,20 @@ public class Chance {
         return new Chance(probability);
     }
 
-    public Chance complement() throws InvalidProbabilityException {
+    public Chance not() throws InvalidProbabilityException {
         return Chance.create(1 -  probability);
+    }
+
+    public Chance and(Chance otherChance) throws InvalidProbabilityException {
+        double combinedProbability = this.probability * otherChance.probability;
+        return Chance.create(combinedProbability);
+    }
+
+    public Chance or(Chance otherChance) throws InvalidProbabilityException {
+        Chance notOfCurrentChance = this.not();
+        Chance notOfOtherChance = otherChance.not();
+
+        return notOfCurrentChance.and(notOfOtherChance).not();
     }
 
     @Override
@@ -33,8 +45,8 @@ public class Chance {
         return Objects.hash(probability);
     }
 
-    public Chance combine(Chance otherChance) throws InvalidProbabilityException {
-        double combinedProbability = this.probability * otherChance.probability;
-        return Chance.create(combinedProbability);
+    public boolean isDifferenceLessThanDelta(Chance otherChance, double delta) {
+        double difference = Math.abs(this.probability - otherChance.probability);
+        return difference < delta;
     }
 }
