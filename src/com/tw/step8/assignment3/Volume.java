@@ -24,4 +24,12 @@ public class Volume {
     public boolean isGreaterThan(Volume otherVolume) {
         return this.toLiters() > otherVolume.toLiters();
     }
+
+    public ComparisonResult compare(Volume otherVolume) {
+        if (this.isEqual(otherVolume)){
+            return ComparisonResult.EQUAL;
+        }
+
+        return this.isGreaterThan(otherVolume) ? ComparisonResult.GREATER : ComparisonResult.LESSER;
+    }
 }
