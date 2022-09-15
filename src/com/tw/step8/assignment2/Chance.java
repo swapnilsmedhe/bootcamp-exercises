@@ -1,5 +1,7 @@
 package com.tw.step8.assignment2;
 
+import com.tw.step8.assignment2.exception.InvalidProbabilityException;
+
 import java.util.Objects;
 
 public class Chance {

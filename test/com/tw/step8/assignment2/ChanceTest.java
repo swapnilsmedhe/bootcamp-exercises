@@ -1,45 +1,33 @@
 package com.tw.step8.assignment2;
 
+import com.tw.step8.assignment2.exception.InvalidProbabilityException;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ChanceTest {
     @Test
     void throwExceptionOnInvalidProbability() {
-
-        try{
-            Chance.create(1.5);
-        } catch (InvalidProbabilityException e) {
-            assertEquals(e, new InvalidProbabilityException(1.5));
-        }
+        assertThrows(InvalidProbabilityException.class, () -> Chance.create(1.2));
     }
 
     @Test
-    void createAChance() throws InvalidProbabilityException {
-        Chance chance1 = Chance.create(0.25);
-        Chance chance2 = Chance.create(0.25);
+    void notOfAChance() throws InvalidProbabilityException {
+        Chance chanceOfHeads = Chance.create(0.25);
+        Chance notOfHeads = chanceOfHeads.not();
+        Chance expectedNotOfHeads = Chance.create(0.75);
 
-        assertEquals(chance1, chance2);
-    }
-
-    @Test
-    void chanceOfNotGetting() throws InvalidProbabilityException {
-        Chance chance = Chance.create(0.5);
-        Chance complement = chance.not();
-        Chance expectedComplement = Chance.create(0.5);
-
-        assertEquals(expectedComplement, complement);
+        assertEquals(expectedNotOfHeads, notOfHeads);
     }
 
     @Test
     void andOfTwoChances() throws InvalidProbabilityException {
-        Chance chance1 = Chance.create(0.5);
-        Chance chance2 = Chance.create(0.5);
+        Chance chanceOfHeads = Chance.create(1.0/2);
+        Chance chanceOfRollingTwo = Chance.create(1.0/6);
 
-        Chance expectedCombinedChance = Chance.create(0.25);
+        Chance expectedAndOfTwoChances = Chance.create(1.0/12);
+        Chance actualAndOfTwoChances = chanceOfHeads.and(chanceOfRollingTwo);
 
-        assertEquals(expectedCombinedChance, chance1.and(chance2));
+        assertTrue(expectedAndOfTwoChances.isDifferenceLessThanDelta(actualAndOfTwoChances, 0.01));
     }
 
     @Test
