@@ -5,30 +5,30 @@ import java.util.Objects;
 
 public class Length {
     private final double value;
-    private final Unit unit;
+    private final LengthUnit unit;
 
-    private Length(double value, Unit unit) {
+    private Length(double value, LengthUnit unit) {
         this.value = value;
         this.unit = unit;
     }
 
-    public static Length create(double value, Unit unit) throws InvalidLengthException {
+    public static Length create(double value, LengthUnit unit) throws InvalidLengthException {
         if (value < 0) {
             throw new InvalidLengthException(value);
         }
         return new Length(value, unit);
     }
 
-    private double toCentimeter() {
-        return this.value * this.unit.centimeterConstant;
+    private double toInch() {
+        return this.value * this.unit.inchConstant;
     }
 
     public boolean isEqual(Length otherLength) {
-        return this.toCentimeter() == otherLength.toCentimeter();
+        return this.toInch() == otherLength.toInch();
     }
 
     public boolean isGreaterThan(Length otherLength) {
-        return this.toCentimeter() > otherLength.toCentimeter();
+        return this.toInch() > otherLength.toInch();
     }
 
     public ComparisonResult compare(Length otherLength) {
