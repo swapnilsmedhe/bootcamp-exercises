@@ -16,4 +16,8 @@ public class ParkingLot {
         parkingSlots.add(car);
         return parkingSlots.size();
     }
+
+    public boolean isFull() {
+        return capacity == parkingSlots.size();
+    }
 }
