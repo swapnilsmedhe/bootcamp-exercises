@@ -1,12 +1,13 @@
 package com.tw.step8.assignment4;
 
+import com.tw.step8.assignment4.exception.ParkingLotFullException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingLotTest {
     @Test
-    void shouldParkACar() {
+    void shouldParkACar() throws ParkingLotFullException {
         ParkingLot parkingLot = new ParkingLot(5);
         Car car = new Car("MH-123");
  
@@ -15,7 +16,7 @@ class ParkingLotTest {
     }
 
     @Test
-    void shouldTellIfParkingLotIsFull() {
+    void shouldTellIfParkingLotIsFull() throws ParkingLotFullException {
         ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car("MH-15");
 
@@ -29,5 +30,15 @@ class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(1);
 
         assertFalse(parkingLot.isFull());
+    }
+
+    @Test
+    void shouldThrowExceptionOnAttemptOfParkingWhenParkingLotIsFull() throws ParkingLotFullException {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car("MH-15");
+
+        parkingLot.park(car);
+
+        assertThrows(ParkingLotFullException.class, () -> parkingLot.park(car));
     }
 }

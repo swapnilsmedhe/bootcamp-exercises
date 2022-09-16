@@ -1,5 +1,7 @@
 package com.tw.step8.assignment4;
 
+import com.tw.step8.assignment4.exception.ParkingLotFullException;
+
 import java.util.ArrayList;
 
 public class ParkingLot {
@@ -12,7 +14,10 @@ public class ParkingLot {
     }
 
 
-    public  Integer park(Car car) {
+    public  Integer park(Car car) throws ParkingLotFullException {
+        if (this.isFull()){
+            throw new ParkingLotFullException(capacity);
+        }
         parkingSlots.add(car);
         return parkingSlots.size();
     }
