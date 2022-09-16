@@ -7,11 +7,13 @@ import java.util.ArrayList;
 
 
 public class ParkingLot {
+    private Integer id;
     private final Integer capacity;
     private final ArrayList<Car> parkingSlots;
     private final Notifier notifier;
 
     public ParkingLot(Integer id, Integer capacity, Notifier notifier) {
+        this.id = id;
         this.capacity = capacity;
         this.parkingSlots = new ArrayList<Car>(capacity);
         this.notifier = notifier;
@@ -36,6 +38,10 @@ public class ParkingLot {
 
     public boolean isFull() {
         return capacity == parkingSlots.size();
+    }
+
+    public Integer getId() {
+        return this.id;
     }
 }
 
