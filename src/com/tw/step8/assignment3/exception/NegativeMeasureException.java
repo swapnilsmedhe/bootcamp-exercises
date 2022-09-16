@@ -1,9 +1,9 @@
 package com.tw.step8.assignment3.exception;
 
-public class InvalidLengthException extends Throwable {
+public class NegativeMeasureException extends Throwable {
     private final double length;
 
-    public InvalidLengthException(double length) {
+    public NegativeMeasureException(double length) {
         this.length = length;
     }
 

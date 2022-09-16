@@ -1,12 +1,13 @@
 package com.tw.step8.assignment3;
 
+import com.tw.step8.assignment3.exception.NegativeMeasureException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class VolumeTest{
     @Test
-    void checkEqualityOfTwoVolumes() {
+    void checkEqualityOfTwoVolumes() throws NegativeMeasureException {
         Volume gallon = Volume.create(1, VolumeUnit.GALLON);
         Volume liters = Volume.create(3.78, VolumeUnit.LITER);
 
@@ -14,7 +15,7 @@ class VolumeTest{
     }
 
     @Test
-    void checkOneVolumeGreaterThanOther() {
+    void checkOneVolumeGreaterThanOther() throws NegativeMeasureException {
         Volume oneGallon = Volume.create(1, VolumeUnit.GALLON);
         Volume threeLiters = Volume.create(3, VolumeUnit.LITER);
 
@@ -22,7 +23,7 @@ class VolumeTest{
     }
 
     @Test
-    void compareEqualityOfTwoVolumes() {
+    void compareEqualityOfTwoVolumes() throws NegativeMeasureException {
         Volume gallon = Volume.create(1, VolumeUnit.GALLON);
         Volume liters = Volume.create(3.78, VolumeUnit.LITER);
 
@@ -30,7 +31,7 @@ class VolumeTest{
     }
 
     @Test
-    void compareOneVolumeGreaterThanOther() {
+    void compareOneVolumeGreaterThanOther() throws NegativeMeasureException {
         Volume gallon = Volume.create(2, VolumeUnit.GALLON);
         Volume liters = Volume.create(3.78, VolumeUnit.LITER);
 
@@ -38,7 +39,7 @@ class VolumeTest{
     }
 
     @Test
-    void compareOneVolumeLesserThanOther() {
+    void compareOneVolumeLesserThanOther() throws NegativeMeasureException {
         Volume gallon = Volume.create(1, VolumeUnit.GALLON);
         Volume liters = Volume.create(5, VolumeUnit.LITER);
 
@@ -46,7 +47,7 @@ class VolumeTest{
     }
 
     @Test
-    void addTwoVolumes() {
+    void addTwoVolumes() throws NegativeMeasureException {
         Volume oneGallon = Volume.create(1, VolumeUnit.GALLON);
         Volume oneLiter = Volume.create(1, VolumeUnit.LITER);
 
@@ -54,5 +55,10 @@ class VolumeTest{
         Volume actualVolume = oneGallon.add(oneLiter);
 
         assertTrue(expectedVolume.isDifferenceLessThanDelta(actualVolume, 0.001));
+    }
+
+    @Test
+    void throwAnExceptionWhenProvidedNegativeValue() {
+        assertThrows(NegativeMeasureException.class, ()-> Volume.create(-7, VolumeUnit.LITER));
     }
 }

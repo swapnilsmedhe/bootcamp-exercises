@@ -1,6 +1,7 @@
 package com.tw.step8.assignment3;
 
 import com.tw.step8.assignment2.Chance;
+import com.tw.step8.assignment3.exception.NegativeMeasureException;
 
 import java.util.Objects;
 
@@ -13,7 +14,10 @@ public class Volume {
         this.unit = unit;
     }
 
-    static Volume create(double value, VolumeUnit unit) {
+    static Volume create(double value, VolumeUnit unit) throws NegativeMeasureException {
+        if (value < 0) {
+            throw new NegativeMeasureException(value);
+        }
         return new Volume(value, unit);
     }
 
@@ -37,7 +41,7 @@ public class Volume {
         return this.isGreaterThan(otherVolume) ? ComparisonResult.GREATER : ComparisonResult.LESSER;
     }
 
-    public Volume add(Volume otherVolume) {
+    public Volume add(Volume otherVolume) throws NegativeMeasureException {
         double result = this.toLiters() + otherVolume.toLiters();
         return Volume.create(result, VolumeUnit.LITER);
     }

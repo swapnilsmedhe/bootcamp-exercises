@@ -1,13 +1,13 @@
 package com.tw.step8.assignment3;
 
-import com.tw.step8.assignment3.exception.InvalidLengthException;
+import com.tw.step8.assignment3.exception.NegativeMeasureException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LengthTest {
     @Test
-    void createALength() throws InvalidLengthException {
+    void createALength() throws NegativeMeasureException {
         Length inch1 = Length.create(5, LengthUnit.INCH);
         Length inch2 = Length.create(5, LengthUnit.INCH);
 
@@ -15,7 +15,7 @@ class LengthTest {
     }
 
     @Test
-    void compareInchAndFootForEquality() throws InvalidLengthException {
+    void compareInchAndFootForEquality() throws NegativeMeasureException {
         Length twelveInches = Length.create(12, LengthUnit.INCH);
         Length oneFeet = Length.create(1, LengthUnit.FEET);
 
@@ -27,7 +27,7 @@ class LengthTest {
     }
 
     @Test
-    void compareInchAndCentimeterForEquality() throws InvalidLengthException {
+    void compareInchAndCentimeterForEquality() throws NegativeMeasureException {
         Length twoInches = Length.create(2, LengthUnit.INCH);
         Length fiveCentimeters = Length.create(5, LengthUnit.CM);
 
@@ -39,7 +39,7 @@ class LengthTest {
     }
 
     @Test
-    void compareCentimeterAndMillimeterForEquality() throws InvalidLengthException {
+    void compareCentimeterAndMillimeterForEquality() throws NegativeMeasureException {
         Length oneCentimeter = Length.create(1, LengthUnit.CM);
         Length tenMillimeters = Length.create(10, LengthUnit.MM);
 
@@ -51,7 +51,7 @@ class LengthTest {
     }
 
     @Test
-    void compareMillimeterAndInchForEquality() throws InvalidLengthException {
+    void compareMillimeterAndInchForEquality() throws NegativeMeasureException {
         Length hundredMillimeters = Length.create(100, LengthUnit.MM);
         Length fourInches = Length.create(4, LengthUnit.INCH);
 
@@ -64,11 +64,11 @@ class LengthTest {
 
     @Test
     void throwInvalidLengthException() {
-        assertThrows(InvalidLengthException.class, () -> Length.create(-2, LengthUnit.FEET));
+        assertThrows(NegativeMeasureException.class, () -> Length.create(-2, LengthUnit.FEET));
     }
 
     @Test
-    void compareOneLengthGreaterThanOther() throws InvalidLengthException {
+    void compareOneLengthGreaterThanOther() throws NegativeMeasureException {
         Length hundredAndTenMillimeters = Length.create(110, LengthUnit.MM);
         Length fourInches = Length.create(4, LengthUnit.INCH);
 
@@ -80,7 +80,7 @@ class LengthTest {
     }
 
     @Test
-    void compareEqualityOfTwoLengths() throws InvalidLengthException {
+    void compareEqualityOfTwoLengths() throws NegativeMeasureException {
         Length oneCentimeter = Length.create(1, LengthUnit.CM);
         Length tenMillimeters = Length.create(10, LengthUnit.MM);
 
@@ -88,7 +88,7 @@ class LengthTest {
     }
 
     @Test
-    void compareIfOneLengthIsGreaterThanOther() throws InvalidLengthException {
+    void compareIfOneLengthIsGreaterThanOther() throws NegativeMeasureException {
         Length twoCentimeters = Length.create(2, LengthUnit.CM);
         Length tenMillimeters = Length.create(10, LengthUnit.MM);
 
@@ -96,7 +96,7 @@ class LengthTest {
     }
 
     @Test
-    void compareIfOneLengthIsLesserThanOther() throws InvalidLengthException {
+    void compareIfOneLengthIsLesserThanOther() throws NegativeMeasureException {
         Length fiveMillimeters = Length.create(5, LengthUnit.MM);
         Length oneCentimeter = Length.create(1, LengthUnit.CM);
 
@@ -104,7 +104,7 @@ class LengthTest {
     }
 
     @Test
-    void addTwoLengthsOfInchUnit() throws InvalidLengthException {
+    void addTwoLengthsOfInchUnit() throws NegativeMeasureException {
         Length twoInches = Length.create(2, LengthUnit.INCH);
         Length threeInches = Length.create(3, LengthUnit.INCH);
 
@@ -114,7 +114,7 @@ class LengthTest {
     }
 
     @Test
-    void addTwoLengthsOfDifferentUnits() throws InvalidLengthException {
+    void addTwoLengthsOfDifferentUnits() throws NegativeMeasureException {
         Length twoAndHalfCM = Length.create(2.5, LengthUnit.CM);
         Length twoInches = Length.create(2, LengthUnit.INCH);
 

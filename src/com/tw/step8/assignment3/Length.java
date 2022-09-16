@@ -1,6 +1,6 @@
 package com.tw.step8.assignment3;
 
-import com.tw.step8.assignment3.exception.InvalidLengthException;
+import com.tw.step8.assignment3.exception.NegativeMeasureException;
 import java.util.Objects;
 
 public class Length {
@@ -12,9 +12,9 @@ public class Length {
         this.unit = unit;
     }
 
-    public static Length create(double value, LengthUnit unit) throws InvalidLengthException {
+    public static Length create(double value, LengthUnit unit) throws NegativeMeasureException {
         if (value < 0) {
-            throw new InvalidLengthException(value);
+            throw new NegativeMeasureException(value);
         }
         return new Length(value, unit);
     }
@@ -52,7 +52,7 @@ public class Length {
         return Objects.hash(value, unit);
     }
 
-    public Length add(Length otherLength) throws InvalidLengthException {
+    public Length add(Length otherLength) throws NegativeMeasureException {
         double result =  this.toInch() + otherLength.toInch();
         return Length.create(result, LengthUnit.INCH);
     }
