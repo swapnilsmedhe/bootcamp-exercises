@@ -13,7 +13,10 @@ class AttendantTest {
     void shouldParkACarInGivenParkingLot() throws ParkingLotFullException, AllParkingLotsFullException {
         Attendant attendant = new Attendant();
 
-        ParkingLot parkingLot = new ParkingLot(1, 1, new Notifier(attendant));
+        ArrayList<Notifiable> notifiables = new ArrayList<>();
+        notifiables.add(attendant);
+
+        ParkingLot parkingLot = new ParkingLot(1, 1, new Notifier(notifiables));
         attendant.attend(parkingLot);
 
         ParkingReceipt actualReceipt = attendant.park(new Car("MH-9"));
@@ -26,7 +29,10 @@ class AttendantTest {
     void shouldThrowExceptionWhenAllParkingLotsAreFull() {
         Attendant attendant = new Attendant();
 
-        ParkingLot parkingLot = new ParkingLot(1, 0, new Notifier(attendant));
+        ArrayList<Notifiable> notifiables = new ArrayList<>();
+        notifiables.add(attendant);
+
+        ParkingLot parkingLot = new ParkingLot(1, 0, new Notifier(notifiables));
         attendant.attend(parkingLot);
 
         assertThrows(AllParkingLotsFullException.class, () -> attendant.park(new Car("MH-3")));

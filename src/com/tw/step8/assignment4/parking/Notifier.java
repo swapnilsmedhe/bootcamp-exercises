@@ -1,13 +1,17 @@
 package com.tw.step8.assignment4.parking;
 
-public class Notifier {
-    private Notifiable notifiable;
+import java.util.ArrayList;
 
-    public Notifier(Notifiable notifiable) {
-        this.notifiable = notifiable;
+public class Notifier {
+    private ArrayList<Notifiable> notifiables;
+
+    public Notifier(ArrayList<Notifiable> notifiables) {
+        this.notifiables = notifiables;
     }
 
     void notify(Notification notification) {
-        this.notifiable.receiveNotification(notification);
+        for (Notifiable notifiable : notifiables) {
+            notifiable.receiveNotification(notification);
+        }
     }
 }
