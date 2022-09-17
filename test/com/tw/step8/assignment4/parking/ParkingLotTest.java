@@ -5,7 +5,6 @@ import com.tw.step8.assignment4.exception.ParkingLotFullException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,19 +13,20 @@ class ParkingLotTest {
     void shouldParkACar() throws ParkingLotFullException {
         ParkingLot parkingLot = new ParkingLot(1, 5, null);
         Car car = new Car("MH-123");
- 
+
         Integer slot = parkingLot.park(car);
         assertEquals(1, slot);
     }
 
     @Test
     void shouldTellIfParkingLotIsFull() throws ParkingLotFullException {
-        Notifiable notifiable = notification -> {};
+        Notifiable notifiable = notification -> {
+        };
 
         ArrayList<Notifiable> notifiables = new ArrayList<>();
         notifiables.add(notifiable);
 
-        Notifier notifier = new Notifier(notifiables);
+        Notifier notifier = new Notifier();
 
         ParkingLot parkingLot = new ParkingLot(1, 1, notifier);
         Car car = new Car("MH-15");
@@ -45,11 +45,12 @@ class ParkingLotTest {
 
     @Test
     void shouldThrowExceptionOnAttemptOfParkingWhenParkingLotIsFull() throws ParkingLotFullException {
-        Notifiable notifiable = notification -> {};
+        Notifiable notifiable = notification -> {
+        };
 
         ArrayList<Notifiable> notifiables = new ArrayList<>();
         notifiables.add(notifiable);
-        Notifier notifier = new Notifier(notifiables);
+        Notifier notifier = new Notifier();
 
 
         ParkingLot parkingLot = new ParkingLot(1, 1, notifier);
@@ -70,9 +71,8 @@ class ParkingLotTest {
             }
         };
 
-        ArrayList<Notifiable> notifiables = new ArrayList<>();
-        notifiables.add(notifiable);
-        Notifier notifier = new Notifier(notifiables);
+        Notifier notifier = new Notifier();
+        notifier.addSubscriber(notifiable);
 
         ParkingLot parkingLot = new ParkingLot(1, 1, notifier);
         parkingLot.park(new Car("MH-15"));

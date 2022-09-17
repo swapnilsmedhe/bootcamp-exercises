@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 public class ParkingLot {
-    private Integer id;
+    private final Integer id;
     private final Integer capacity;
     private final ArrayList<Car> parkingSlots;
     private final Notifier notifier;
@@ -15,7 +15,7 @@ public class ParkingLot {
     public ParkingLot(Integer id, Integer capacity, Notifier notifier) {
         this.id = id;
         this.capacity = capacity;
-        this.parkingSlots = new ArrayList<Car>(capacity);
+        this.parkingSlots = new ArrayList<>(capacity);
         this.notifier = notifier;
     }
 
@@ -44,4 +44,3 @@ public class ParkingLot {
         return this.id;
     }
 }
-
