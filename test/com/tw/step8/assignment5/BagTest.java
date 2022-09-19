@@ -52,4 +52,30 @@ class BagTest {
 
         assertEquals(Status.MAX_COLOUR_BALLS_REACHED, actualStatus);
     }
+
+    @Test
+    void shouldNotStoreYellowBallIfItsOccupancyIsMoreThanFortyPercent() {
+        Bag bag = new Bag(3, Colour.GREEN, 2, Colour.RED);
+        Ball greenBall = new Ball(Colour.GREEN);
+        Ball yellowBall = new Ball(Colour.YELLOW);
+
+        bag.store(greenBall);
+        Status actualStatus = bag.store(yellowBall);
+
+        assertEquals(Status.MAX_COLOUR_BALLS_REACHED, actualStatus);
+    }
+
+    @Test
+    void shouldStoreYellowBall() {
+        Bag bag = new Bag(3, Colour.GREEN, 2, Colour.RED);
+        Ball greenBall = new Ball(Colour.GREEN);
+        Ball redBall = new Ball(Colour.RED);
+        Ball yellowBall = new Ball(Colour.YELLOW);
+
+        bag.store(greenBall);
+        bag.store(redBall);
+        Status actualStatus = bag.store(yellowBall);
+
+        assertEquals(Status.STORED, actualStatus);
+    }
 }

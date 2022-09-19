@@ -10,7 +10,7 @@ class BallTest {
         Ball greenBall = new Ball(Colour.GREEN);
         Ball redBall = new Ball(Colour.RED);
 
-        assertTrue(greenBall.ifOf(Colour.GREEN));
-        assertFalse(redBall.ifOf(Colour.GREEN));
+        assertTrue(greenBall.isOf(Colour.GREEN));
+        assertFalse(redBall.isOf(Colour.GREEN));
     }
 }

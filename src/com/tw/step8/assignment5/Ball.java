@@ -8,7 +8,7 @@ public class Ball {
         this.colour = colour;
     }
 
-    public boolean ifOf(Colour colour) {
+    public boolean isOf(Colour colour) {
         return this.colour == colour;
     }
 }
