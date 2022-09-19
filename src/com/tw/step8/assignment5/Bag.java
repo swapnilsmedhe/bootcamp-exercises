@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 public class Bag {
     private final int capacity;
     private final HashSet<Ball> balls;
-    private Colour colour;
-    private int colourBallsLimit;
+    private final Colour colour;
+    private final int colourBallsLimit;
 
     public Bag(int capacity, Colour colour, int colourBallsLimit) {
         this.capacity = capacity;
