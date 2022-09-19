@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BagTest {
     @Test
-    void shouldStoreABall() {
-        Bag bag = new Bag(1,1);
+    void shouldStoreABall() throws NegativeCapacityException {
+        Bag bag = Bag.createBag(1,1);
         Ball ball = new Ball(Colour.GREEN);
 
         Status actualStatus = bag.store(ball);
@@ -16,8 +16,14 @@ class BagTest {
     }
 
     @Test
-    void shouldNotStoreABallIfCapacityReached() {
-        Bag bag = new Bag(0, 1);
+    void shouldThrowExceptionWhenNegativeCapacityIsGiven() {
+        assertThrows(NegativeCapacityException.class, ()->Bag.createBag(-1, 1));
+        assertThrows(NegativeCapacityException.class, ()->Bag.createBag(1, -1));
+    }
+
+    @Test
+    void shouldNotStoreABallIfCapacityReached() throws NegativeCapacityException {
+        Bag bag = Bag.createBag(0, 1);
         Ball ball = new Ball(Colour.GREEN);
 
         Status actualStatus = bag.store(ball);
@@ -26,8 +32,8 @@ class BagTest {
     }
 
     @Test
-    void shouldNotStoreGreenBallsBeyondLimit() {
-        Bag bag = new Bag(2, 1);
+    void shouldNotStoreGreenBallsBeyondLimit() throws NegativeCapacityException {
+        Bag bag = Bag.createBag(2, 1);
         Ball firstGreenBall = new Ball(Colour.GREEN);
         Ball secondGreenBall = new Ball(Colour.GREEN);
 
@@ -38,8 +44,8 @@ class BagTest {
     }
 
     @Test
-    void shouldNotStoreRedBallsIfTheyAreDoubleTheSizeOfGreenBalls() {
-        Bag bag = new Bag(4, 2);
+    void shouldNotStoreRedBallsIfTheyAreDoubleTheSizeOfGreenBalls() throws NegativeCapacityException {
+        Bag bag = Bag.createBag(4, 2);
         Ball greenBall = new Ball(Colour.GREEN);
         Ball firstRedBall = new Ball(Colour.RED);
         Ball secondRedBall = new Ball(Colour.RED);
@@ -54,8 +60,8 @@ class BagTest {
     }
 
     @Test
-    void shouldNotStoreYellowBallIfItsOccupancyIsMoreThanFortyPercent() {
-        Bag bag = new Bag(3, 2);
+    void shouldNotStoreYellowBallIfItsOccupancyIsMoreThanFortyPercent() throws NegativeCapacityException {
+        Bag bag = Bag.createBag(3, 2);
         Ball greenBall = new Ball(Colour.GREEN);
         Ball yellowBall = new Ball(Colour.YELLOW);
 
@@ -66,8 +72,8 @@ class BagTest {
     }
 
     @Test
-    void shouldStoreYellowBall() {
-        Bag bag = new Bag(3, 2);
+    void shouldStoreYellowBall() throws NegativeCapacityException {
+        Bag bag = Bag.createBag(3, 2);
         Ball greenBall = new Ball(Colour.GREEN);
         Ball redBall = new Ball(Colour.RED);
         Ball yellowBall = new Ball(Colour.YELLOW);
@@ -80,8 +86,8 @@ class BagTest {
     }
 
     @Test
-    void shouldNotStoreBlackBallIfBlueBallIsPresent() {
-        Bag bag = new Bag(3, 2);
+    void shouldNotStoreBlackBallIfBlueBallIsPresent() throws NegativeCapacityException {
+        Bag bag = Bag.createBag(3, 2);
         Ball blueBall = new Ball(Colour.BLUE);
         Ball blackBall = new Ball(Colour.BLACK);
 
@@ -92,8 +98,8 @@ class BagTest {
     }
 
     @Test
-    void shouldNotStoreBlueBallIfBlackBallIsPresent() {
-        Bag bag = new Bag(3, 2);
+    void shouldNotStoreBlueBallIfBlackBallIsPresent() throws NegativeCapacityException {
+        Bag bag = Bag.createBag(3, 2);
         Ball blackBall = new Ball(Colour.BLACK);
         Ball blueBall = new Ball(Colour.BLUE);
 

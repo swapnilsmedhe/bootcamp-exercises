@@ -9,10 +9,22 @@ public class Bag {
     private final HashSet<Ball> balls;
     private final int greenBallsLimit;
 
-    public Bag(int capacity, int greenBallsLimit) {
+    private Bag(int capacity, int greenBallsLimit) {
         this.capacity = capacity;
         this.balls = new HashSet<>();
         this.greenBallsLimit = greenBallsLimit;
+    }
+
+    public static Bag createBag(int capacity, int greenBallsLimit) throws NegativeCapacityException {
+        if (capacity < 0) {
+            throw new NegativeCapacityException(capacity);
+        }
+
+        if (greenBallsLimit < 0) {
+            throw new NegativeCapacityException(greenBallsLimit);
+
+        }
+        return new Bag(capacity, greenBallsLimit);
     }
 
     public Status store(Ball ball) {
