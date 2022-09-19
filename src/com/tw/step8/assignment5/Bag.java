@@ -15,26 +15,45 @@ public class Bag {
         this.greenBallsLimit = greenBallsLimit;
     }
 
-
     public Status store(Ball ball) {
         if (balls.size() >= capacity) {
             return Status.MAX_CAPACITY_REACHED;
         }
 
-        if (ball.isOf(Colour.RED) && !canAddRedBall()){
+        if (ball.isOf(Colour.RED) && !canAddRedBall()) {
             return Status.MAX_COLOUR_BALLS_REACHED;
         }
 
-        if (ball.isOf(Colour.GREEN) && !canAddGreenBall()){
+        if (ball.isOf(Colour.GREEN) && !canAddGreenBall()) {
             return Status.MAX_COLOUR_BALLS_REACHED;
         }
 
-        if(ball.isOf(Colour.YELLOW) && !canAddYellowBall()){
+        if (ball.isOf(Colour.YELLOW) && !canAddYellowBall()) {
             return Status.MAX_COLOUR_BALLS_REACHED;
+        }
+
+        if (ball.isOf(Colour.BLACK) && !canAddBlackBall()) {
+            return Status.CANNOT_STORE;
+        }
+
+        if (ball.isOf(Colour.BLUE) && !canAddBlueBall()) {
+            return Status.CANNOT_STORE;
         }
 
         balls.add(ball);
         return Status.STORED;
+    }
+
+    private boolean canAddBlueBall() {
+        boolean isBlackBallPresent = balls.stream()
+                .anyMatch((ball) -> ball.isOf(Colour.BLACK));
+        return !isBlackBallPresent;
+    }
+
+    private boolean canAddBlackBall() {
+        boolean isBlueBallPresent = balls.stream()
+                .anyMatch((ball) -> ball.isOf(Colour.BLUE));
+        return !isBlueBallPresent;
     }
 
     private boolean canAddGreenBall() {
@@ -44,8 +63,10 @@ public class Bag {
 
     private boolean canAddYellowBall() {
         List<Ball> yellowBalls = getBalls(Colour.YELLOW);
+
         int yellowBallsCount = yellowBalls.size();
-        int yellowBallOccupancy =  (yellowBallsCount + 1) * 100 / (balls.size() + 1);
+        int yellowBallOccupancy = (yellowBallsCount + 1) * 100 / (balls.size() + 1);
+
         return yellowBallOccupancy <= 40;
     }
 

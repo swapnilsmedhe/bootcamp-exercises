@@ -78,4 +78,28 @@ class BagTest {
 
         assertEquals(Status.STORED, actualStatus);
     }
+
+    @Test
+    void shouldNotStoreBlackBallIfBlueBallIsPresent() {
+        Bag bag = new Bag(3, 2);
+        Ball blueBall = new Ball(Colour.BLUE);
+        Ball blackBall = new Ball(Colour.BLACK);
+
+        bag.store(blueBall);
+        Status actualStatus = bag.store(blackBall);
+
+        assertEquals(Status.CANNOT_STORE, actualStatus);
+    }
+
+    @Test
+    void shouldNotStoreBlueBallIfBlackBallIsPresent() {
+        Bag bag = new Bag(3, 2);
+        Ball blackBall = new Ball(Colour.BLACK);
+        Ball blueBall = new Ball(Colour.BLUE);
+
+        bag.store(blackBall);
+        Status actualStatus = bag.store(blueBall);
+
+        assertEquals(Status.CANNOT_STORE, actualStatus);
+    }
 }
