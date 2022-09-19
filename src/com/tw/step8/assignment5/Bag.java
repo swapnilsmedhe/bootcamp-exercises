@@ -7,16 +7,12 @@ import java.util.stream.Collectors;
 public class Bag {
     private final int capacity;
     private final HashSet<Ball> balls;
-//    private final Colour colour;
-    private final int colourBallsLimit;
-//    private Colour dependantColour;
+    private final int greenBallsLimit;
 
     public Bag(int capacity, int greenBallsLimit) {
         this.capacity = capacity;
         this.balls = new HashSet<>();
-//        this.colour = colour;
-        this.colourBallsLimit = greenBallsLimit;
-//        this.dependantColour = dependantColour;
+        this.greenBallsLimit = greenBallsLimit;
     }
 
 
@@ -25,13 +21,11 @@ public class Bag {
             return Status.MAX_CAPACITY_REACHED;
         }
 
-        if (canAddRedBall(ball)){
+        if (ball.isOf(Colour.RED) && !canAddRedBall()){
             return Status.MAX_COLOUR_BALLS_REACHED;
         }
 
-        List<Ball> greenBalls = getBalls(Colour.GREEN);
-
-        if (greenBalls.size() >= colourBallsLimit){
+        if (ball.isOf(Colour.GREEN) && !canAddGreenBall()){
             return Status.MAX_COLOUR_BALLS_REACHED;
         }
 
@@ -43,6 +37,11 @@ public class Bag {
         return Status.STORED;
     }
 
+    private boolean canAddGreenBall() {
+        List<Ball> greenBalls = getBalls(Colour.GREEN);
+        return greenBalls.size() < greenBallsLimit;
+    }
+
     private boolean canAddYellowBall() {
         List<Ball> yellowBalls = getBalls(Colour.YELLOW);
         int yellowBallsCount = yellowBalls.size();
@@ -50,11 +49,11 @@ public class Bag {
         return yellowBallOccupancy <= 40;
     }
 
-    private boolean canAddRedBall(Ball ball) {
+    private boolean canAddRedBall() {
         List<Ball> greenBalls = getBalls(Colour.GREEN);
         List<Ball> redBalls = getBalls(Colour.RED);
 
-        return (2 * greenBalls.size()) <= redBalls.size() && ball.isOf(Colour.RED);
+        return redBalls.size() < (2 * greenBalls.size());
     }
 
     private List<Ball> getBalls(Colour colour) {
