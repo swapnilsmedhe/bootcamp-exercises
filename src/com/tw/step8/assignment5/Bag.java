@@ -9,18 +9,25 @@ public class Bag {
     private final HashSet<Ball> balls;
     private final Colour colour;
     private final int colourBallsLimit;
+    private Colour dependantColour;
 
-    public Bag(int capacity, Colour colour, int colourBallsLimit) {
+    public Bag(int capacity, Colour colour, int colourBallsLimit, Colour dependantColour) {
         this.capacity = capacity;
         this.balls = new HashSet<>(capacity);
         this.colour = colour;
         this.colourBallsLimit = colourBallsLimit;
+        this.dependantColour = dependantColour;
     }
 
 
     public Status store(Ball ball) {
         if (balls.size() >= capacity) {
             return Status.MAX_CAPACITY_REACHED;
+        }
+
+
+        if (canAddDependantColourBall(ball)){
+            return Status.MAX_COLOUR_BALLS_REACHED;
         }
 
         List<Ball> colouredBalls = getBalls(colour);
@@ -31,6 +38,13 @@ public class Bag {
 
         balls.add(ball);
         return Status.STORED;
+    }
+
+    private boolean canAddDependantColourBall(Ball ball) {
+        List<Ball> colouredBalls = getBalls(colour);
+        List<Ball> dependantColouredBalls = getBalls(dependantColour);
+
+        return (2 * colouredBalls.size()) <= dependantColouredBalls.size() && ball.ifOf(dependantColour);
     }
 
     private List<Ball> getBalls(Colour colour) {
